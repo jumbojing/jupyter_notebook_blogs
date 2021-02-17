@@ -1,0 +1,421 @@
+<p><code class="language-plaintext highlighter-rouge">python hide_input=false
+#default_exp tutorial
+from nbdev.showdoc import show_doc
+</code></p>
+
+<h1 id="最小的例子">最小的例子</h1>
+
+<p>从头开始创建nbdev项目的最小端到端示例。</p>
+
+<ul>
+  <li>
+    <p><a href="https://nbdev.fast.ai/example.html#Step-1:-Setup-your-nbdev-GitHub-Repo">第1步：设置您的nbdev GitHub存储库</a></p>
+  </li>
+  <li>
+    <p><a href="https://nbdev.fast.ai/example.html#Step-2:-Modify-Configuration-Files">步骤2：修改配置文件</a></p>
+
+    <ul>
+      <li><a href="https://nbdev.fast.ai/example.html#Edit-settings.ini">编辑settings.ini</a></li>
+    </ul>
+  </li>
+  <li>
+    <p><a href="https://nbdev.fast.ai/example.html#Step-3:-Write-Code-(Or-Copy/Paste-Into-A-Notebook)">步骤3：编写代码（或复制/粘贴到笔记本中）</a></p>
+
+    <ul>
+      <li>
+        <p><a href="https://nbdev.fast.ai/example.html#Flags">标志</a></p>
+      </li>
+      <li>
+        <p><a href="https://nbdev.fast.ai/example.html#Where-The-Magic-Happens:-Write-Documentation-And-Tests">魔术发生的地方：编写文档和测试</a></p>
+      </li>
+      <li>
+        <p><a href="https://nbdev.fast.ai/example.html#Edit-index.ipynb">编辑index.ipynb</a></p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><a href="https://nbdev.fast.ai/example.html#Step-4:--Convert-Notebooks-To-Python-Modules-&amp;-Docs">步骤4：将笔记本转换为Python模块和文档</a></p>
+
+    <ul>
+      <li>
+        <p><a href="https://nbdev.fast.ai/example.html#Preview-The-Docs">预览文档</a></p>
+
+        <ul>
+          <li><a href="https://nbdev.fast.ai/example.html#Explanation-of-annotations:">注释说明：</a></li>
+        </ul>
+      </li>
+      <li>
+        <p><a href="https://nbdev.fast.ai/example.html#show_doc">show_doc</a></p>
+
+        <ul>
+          <li><a href="https://nbdev.fast.ai/example.html#Important-Notes-about-show_doc:">关于show_doc的重要说明：</a></li>
+        </ul>
+      </li>
+      <li>
+        <p><a href="https://nbdev.fast.ai/example.html#Refresh-the-docs">刷新文档</a></p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><a href="https://nbdev.fast.ai/example.html#Step-5:-Push-Files-To-GitHub-And-View-Hosted-Docs">第5步：将文件推送到GitHub并查看托管文档</a></p>
+  </li>
+  <li>
+    <p><a href="https://nbdev.fast.ai/example.html#Step-6:-Add-More-Code">步骤6：添加更多代码</a></p>
+
+    <ul>
+      <li>
+        <p><a href="https://nbdev.fast.ai/example.html#Tests">测验</a></p>
+
+        <ul>
+          <li><a href="https://nbdev.fast.ai/example.html#Explanation-of-annotations:">注释说明：</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><a href="https://nbdev.fast.ai/example.html#Step-7:-Publish-Python-Module-to-Pypi">步骤7：将Python模块发布到Pypi</a></p>
+  </li>
+  <li>
+    <p><a href="https://nbdev.fast.ai/example.html#References">参考</a></p>
+
+    <ul>
+      <li><a href="https://nbdev.fast.ai/example.html#Live-Demo">现场演示</a></li>
+    </ul>
+  </li>
+</ul>
+
+<p>本节假设您已完成本 <a href="https://nbdev.fast.ai/tutorial.html">教程</a> 。 以下是一个从头开始创建nbdev项目的最小示例，其中有一些注释说明了某些事情为何以这种方式工作。</p>
+
+<p>对于此示例，我们将使用 <a href="https://github.com/AllenDowney/ThinkPython2">Allen Downey出色著作《 Think Python 2》中的代码</a> ，尤其是 <a href="https://github.com/AllenDowney/ThinkPython2/blob/master/code/Card.py">Card</a> 模块。 我们将 <code class="language-plaintext highlighter-rouge">nbdev</code> 专注于为您提供足够的信息以提高生产力， 因此不会涵盖的所有功能 。 我们建议 您在完成本示例后 阅读其余 <a href="https://nbdev.fast.ai/">文档</a> 。</p>
+
+<h2 id="第1步设置您的nbdev-github存储库">第1步：设置您的nbdev GitHub存储库<a href="https://nbdev.fast.ai/example.html#Step-1:-Setup-your-nbdev-GitHub-Repo"></a><a href="https://nbdev.fast.ai/example.html#Step-1:-Setup-your-nbdev-GitHub-Repo"></a></h2>
+
+<p>根据 <a href="https://nbdev.fast.ai/tutorial.html">教程中</a> 的说明 ，我们将使用 <a href="https://github.com/fastai/nbdev_template">模板</a> 创建一个新的存储库 。 在这种情况下，我们创建一个名为 <a href="https://github.com/fastai/deck_of_cards">deck_of_cards</a> 的存储库 ：</p>
+
+<p><strong>注意：</strong> 如果您打算编写可安装的Python模块，我们强烈建议您将repo命名为python模块。</p>
+
+<p><img src="https://nbdev.fast.ai/images/att_00010.png" alt="image.png" /></p>
+
+<p>完成此操作后，您将获得一个包含必要文件的存储库以开始使用。 您还应该 按照 <a href="https://nbdev.fast.ai/tutorial.html">本教程中</a> 的说明 <a href="https://nbdev.fast.ai/tutorial.html#Set-up-Your-Jupyter-Server">安装nbdev</a> 并 <a href="https://nbdev.fast.ai/tutorial.html#Install-git-hooks">安装githooks</a> 。<a href="https://nbdev.fast.ai/tutorial.html"></a></p>
+
+<h2 id="步骤2修改配置文件">步骤2：修改配置文件<a href="https://nbdev.fast.ai/example.html#Step-2:-Modify-Configuration-Files"></a><a href="https://nbdev.fast.ai/example.html#Step-2:-Modify-Configuration-Files"></a></h2>
+
+<h3 id="编辑settingsini">编辑settings.ini<a href="#Edit-settings.ini"></a><a href="#Edit-settings.ini"></a></h3>
+
+<p><a href="https://nbdev.fast.ai/tutorial.html#Edit-settings.ini"></a>要使nbdev正常工作，需要 <a href="https://nbdev.fast.ai/tutorial.html#Edit-settings.ini">编辑settings.ini</a> 。 这些设置用于填充必需的信息，以供您在 <a href="https://nbdev.fast.ai/tutorial.html#Github-pages">GitHub Pages</a> 上 <a href="https://nbdev.fast.ai/tutorial.html#Github-pages">托管</a> 文档 ，以及 <a href="https://nbdev.fast.ai/tutorial.html#Upload-to-pypi">将模块作为软件包发布到pypi</a> 。</p>
+
+<p>这些是我们在 <a href="https://github.com/fastai/deck_of_cards/blob/master/settings.ini">settings.ini中</a> 更改的字段 ：</p>
+
+<p>lib_name  =  deck_of_cards</p>
+
+<p>描述 =  “使用来自Allen Downey的Think Python 2nd Ed的代码编写的nbdev的最小示例”</p>
+
+<p>关键字 =  nbdev</p>
+
+<p>作者 =  Hamel Husain</p>
+
+<p>author_email  =  hamel@example.com</p>
+
+<p>版权 =  Hamel，inc。</p>
+
+<p>用户 =  fastai</p>
+
+<p><strong>注意：</strong> 在此示例中，用户的值实际上并未更改，但是您必须将其更改为与GitHub上的GitHub存储库（通常是用户名）相对应的org。</p>
+
+<p>settings.ini文件中的值会自动为您传播到各种系统，这有助于最小化样板并学习复杂的配置文件。 例如，</p>
+
+<ul>
+  <li>
+    <p>该 <code class="language-plaintext highlighter-rouge">author</code> 和 <code class="language-plaintext highlighter-rouge">author_email</code> 字段由读取 <a href="https://github.com/fastai/deck_of_cards/blob/master/setup.py">setup.py</a> 的Python包装。</p>
+  </li>
+  <li>
+    <p>在 <code class="language-plaintext highlighter-rouge">lib_name</code> 被两个由 <a href="https://github.com/fastai/deck_of_cards/blob/master/setup.py">setup.py</a> 和 <a href="https://jekyllrb.com/">杰奇</a> 的配置文件， <a href="https://github.com/fastai/deck_of_cards/blob/master/docs/_config.yml">_config.yaml</a> 以确保呈现文档都在GitHub上的页面配置正确。</p>
+  </li>
+</ul>
+
+<h2 id="步骤3编写代码或复制粘贴到笔记本中">步骤3：编写代码（或复制/粘贴到笔记本中）<a href="https://nbdev.fast.ai/example.html#Step-3:-Write-Code-(Or-Copy/Paste-Into-A-Notebook)"></a><a href="https://nbdev.fast.ai/example.html#Step-3:-Write-Code-(Or-Copy/Paste-Into-A-Notebook)"></a></h2>
+
+<p>接下来，我们 <a href="https://github.com/AllenDowney/ThinkPython2/blob/master/code/Card.py#L17">从ThinkPython2存储库中</a> 获取 <a href="https://github.com/AllenDowney/ThinkPython2/blob/master/code/Card.py#L17">Card模块，</a> 并将其写入nbdev中。</p>
+
+<p>第一步是将 <code class="language-plaintext highlighter-rouge">Card</code> 类从 <a href="https://github.com/AllenDowney/ThinkPython2/blob/master/code/Card.py">Card.py</a> 复制并粘贴 到新的Jupyter笔记本中，我们将其命名为 <a href="https://github.com/fastai/deck_of_cards/blob/master/00_card.ipynb">00_card.ipynb</a> 。 从python文件复制和粘贴代码是将现有python脚本转换为Jupyter笔记本的合理方法。 将大量代码复制到笔记本中的一个有用技巧是将整个文件复制到一个单元格中，然后 <code class="language-plaintext highlighter-rouge">ctrl-shift-minus</code> 将代码拆分为多个单独的单元格。</p>
+
+<p>如果您尝试将现有的python项目转换为 <code class="language-plaintext highlighter-rouge">nbdev</code> ，我们建议您逐步将特定文件逐步转换为 <code class="language-plaintext highlighter-rouge">nbdev</code> 。 具体来说，我们建议选择一个python文件， <code class="language-plaintext highlighter-rouge">card.py</code> 如下所示。</p>
+
+<p><strong>注意：</strong> 文件名开头的数字不是必需的； 这是一种惯例，当笔记本按文件系统排序时，我们可以使笔记本保持所需的顺序。</p>
+
+<p>在 <a href="https://github.com/fastai/deck_of_cards/blob/master/00_card.ipynb">笔记本</a> 的第一个单元格中 ，写一个看起来像这样的注释（这不是必需的，但是我们在这里这样做是为了突出nbdev的重要功能）：</p>
+
+<p>＃default_exp卡</p>
+
+<p>在这种情况下，该参数 <code class="language-plaintext highlighter-rouge">card</code> 指定 <code class="language-plaintext highlighter-rouge">card.py</code> 默认情况下 将从此笔记本导出的代码放置在目标位置 。 您可以 <a href="https://nbdev.fast.ai/export.html">在此处</a> 阅读有关如何从笔记本创建python模块的更多信息 。 安排笔记本的合理方法如下：</p>
+
+<p><img src="https://nbdev.fast.ai/images/att_00011.png" alt="image.png" /></p>
+
+<h3 id="标志">标志<a href="#Flags"></a><a href="#Flags"></a></h3>
+
+<p>nbdev使用特殊的注释或标志作为一种标记语言，使您可以控制文档的各个方面以及如何将代码导出到模块以及如何测试代码。 除之外 <code class="language-plaintext highlighter-rouge">default_exp</code> ，此笔记本中还存在以下其他标志：</p>
+
+<p><code class="language-plaintext highlighter-rouge">#hide</code></p>
+
+<p><strong>注意：</strong> 此注释指示nbdev在生成文档时隐藏此单元格。</p>
+
+<p><code class="language-plaintext highlighter-rouge">#export</code></p>
+
+<p><strong>注意：</strong> 此注释指示nbdev将此单元导出到适当的python文件。 如果未为提供参数 <a href="https://nbdev.fast.ai/export.html"><code class="language-plaintext highlighter-rouge">export</code></a> ，则默认为上述指定的模块 <code class="language-plaintext highlighter-rouge">default_exp</code> 。</p>
+
+<h3 id="魔术发生的地方编写文档和测试">魔术发生的地方：编写文档和测试<a href="https://nbdev.fast.ai/example.html#Where-The-Magic-Happens:-Write-Documentation-And-Tests"></a><a href="https://nbdev.fast.ai/example.html#Where-The-Magic-Happens:-Write-Documentation-And-Tests"></a></h3>
+
+<p>在原始代码库中，Card的测试是分开的，位于 <a href="https://github.com/AllenDowney/ThinkPython2/blob/master/code/Card_test.py">Card_test.py中</a> 。 此外，的文档 <code class="language-plaintext highlighter-rouge">Card</code> 主要位于 Allen仓库 的 <a href="https://github.com/AllenDowney/ThinkPython2/tree/master/book">book文件夹中</a> ，而某些文档也位于文档字符串中。 尽管这是Python项目的典型安排，但我们认为 <code class="language-plaintext highlighter-rouge">nbdev</code> 可以通过将文档，测试和源代码组织到一个上下文中来简化您的工作流程。 我们认为，这使开发人员可以编写更高质量的文档和代码，并鼓励进行更多测试。</p>
+
+<p>这是Card的文档+代码：</p>
+
+<p><img src="https://nbdev.fast.ai/images/att_00012.png" alt="image.png" /></p>
+
+<p>这些注释和测试由文档系统提供，将在后面的部分中进行讨论。 此外， <a href="https://nbdev.fast.ai/tutorial.html#CI">默认情况下</a> ，assert语句自动成为由 <a href="https://nbdev.fast.ai/tutorial.html#CI">持续集成系统设置</a> 在GitHub存储库 <a href="https://nbdev.fast.ai/tutorial.html#CI">中的nbdev</a> 中 运行的测试 。</p>
+
+<p><strong>注意：</strong> nbdev编程环境 为您 设置了 <a href="https://nbdev.fast.ai/tutorial.html#CI">持续集成（CI）</a> 系统。 您无需执行任何其他操作即可启用它，它会立即开始工作。 对于没有CI经验的人来说，这尤其好。 这是开始使用它的一种温和方法。</p>
+
+<p><strong>重要提示：</strong> <a href="https://fastcore.fast.ai/test.html">fastcore的测试实用</a> 程序提供了 <a href="https://fastcore.fast.ai/test.html">一些测试实用程序</a> ，这些 实用程序提供了 <a href="https://fastcore.fast.ai/test.html">对</a> 常用断言语句类型的包装，还提供了更好的默认错误消息。 使用这些是可选的，但建议使用。</p>
+
+<h3 id="编辑indexipynb">编辑index.ipynb<a href="#Edit-index.ipynb"></a><a href="#Edit-index.ipynb"></a></h3>
+
+<p><code class="language-plaintext highlighter-rouge">nbdev</code> 存储库需要一个名为的笔记本 <code class="language-plaintext highlighter-rouge">index.ipynb</code> ，当您使用模板时，该 笔记本将 包含在您的存储库中。 <code class="language-plaintext highlighter-rouge">index.ipynb</code> 有两个目的：</p>
+
+<ol>
+  <li>
+    <p>它成为您的仓库的自述文件（此笔记本转换为 <code class="language-plaintext highlighter-rouge">README.md</code> ）</p>
+  </li>
+  <li>
+    <p>它成为 <code class="language-plaintext highlighter-rouge">index.html</code> 文档的 主页（ ）。</p>
+  </li>
+</ol>
+
+<p>您会注意到以下样板 <code class="language-plaintext highlighter-rouge">index.ipynb</code> ：</p>
+
+<p>从 your_lib.core 导入 *</p>
+
+<p>您应该删除此行代码或将其注释掉，因为这将导致语法错误。 稍后，当您完成模块的创建时，可以将其替换为适当的import语句。 我们在此故意保留了此行，以便您可以体验持续集成系统（如上所述）如何警告您错误。</p>
+
+<h2 id="步骤4将笔记本转换为python模块和文档">步骤4：将笔记本转换为Python模块和文档<a href="https://nbdev.fast.ai/example.html#Step-4:--Convert-Notebooks-To-Python-Modules-&amp;-Docs"></a><a href="https://nbdev.fast.ai/example.html#Step-4:--Convert-Notebooks-To-Python-Modules-&amp;-Docs"></a></h2>
+
+<p><strong><a href="https://nbdev.fast.ai/export2html.html#nbdev_build_lib"><code class="language-plaintext highlighter-rouge">nbdev_build_lib</code></a></strong> 从仓库的根目录<strong>运行命令</strong> 。 这会将标 <code class="language-plaintext highlighter-rouge">#export</code> 有的 笔记本单元导出 到适当的python模块。 例如，笔记本 <a href="https://github.com/fastai/deck_of_cards/blob/master/00_card.ipynb">00_cards.ipynb</a> 被转换到 <a href="https://github.com/fastai/deck_of_cards/blob/master/deck_of_cards/card.py">card.py</a> 。</p>
+
+<p><strong>运行命令<a href="https://nbdev.fast.ai/test.html#nbdev_test_nbs"><code class="language-plaintext highlighter-rouge">nbdev_test_nbs</code></a></strong> 以运行代码并在所有笔记本中进行测试。 <a href="https://nbdev.fast.ai/tutorial.html#CI">nbdev</a> 还会通过 <a href="https://nbdev.fast.ai/tutorial.html#CI">持续集成系统设置为您</a> 运行此命令 ，但是在本地运行这些测试以获得即时反馈很有用。</p>
+
+<p><strong>注意：</strong> 有一种方法可以通过使用 <a href="https://nbdev.fast.ai/test.html">此处描述的</a> 特殊标签来选择性地跳过某些运行时间长或速度慢的测试<a href="https://nbdev.fast.ai/test.html"></a></p>
+
+<h3 id="预览文档">预览文档<a href="#Preview-The-Docs"></a><a href="#Preview-The-Docs"></a></h3>
+
+<p>要预览文档，请 <code class="language-plaintext highlighter-rouge">make docs_serve</code> 从存储库的根目录 运行命令 。 此命令 <a href="https://nbdev.fast.ai/export2html.html#nbdev_build_docs"><code class="language-plaintext highlighter-rouge">nbdev_build_docs</code></a> 为您在后台 运行CLI命令 ，该 命令 从笔记本生成文档站点。 运行此命令后，您将在终端中看到一个URL，指示文档在本地托管的位置。 对于 本例中使用 的 <a href="https://github.com/fastai/deck_of_cards/">fastai / deck_of_cards</a> 存储库，URL为 <code class="language-plaintext highlighter-rouge">http://127.0.0.1:4000/deck_of_cards/</code></p>
+
+<p>如果您导航到的卡片页面 <code class="language-plaintext highlighter-rouge">http://127.0.0.1:4000/deck_of_cards/card.html</code> ，您将看到我们刚刚编写的文档，我们对其进行了注释，以供进一步说明：</p>
+
+<p><img src="https://nbdev.fast.ai/images/att_00016.png" alt="image.png" /></p>
+
+<h4 id="注释说明">注释说明：<a href="https://nbdev.fast.ai/example.html#Explanation-of-annotations:"></a><a href="https://nbdev.fast.ai/example.html#Explanation-of-annotations:"></a></h4>
+
+<ol>
+  <li>
+    <p>标题 <strong>卡</strong> 与 <code class="language-plaintext highlighter-rouge">H1</code> 笔记本中 的第一个 标题 相对应， 并带有注释块 <em>API Details</em> 作为摘要。</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">nbdev</code> 自动为您呈现一个目录。</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">nbdev</code> 自动将您的类或函数的签名呈现为标题。</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">nbdev</code> 在GitHub上自动将链接添加到相应的源代码（这是纯文本python文件）。 请记住， <code class="language-plaintext highlighter-rouge">nbdev</code> 使用命令将Jupyter笔记本转换为源代码 <a href="https://nbdev.fast.ai/export2html.html#nbdev_build_lib"><code class="language-plaintext highlighter-rouge">nbdev_build_lib</code></a> 。</p>
+  </li>
+  <li>
+    <p>这部分文档是从文档字符串自动呈现的。</p>
+  </li>
+  <li>
+    <p>笔记本的其余部分通过将markdown转换为HTML，显示每个单元格（包括图表和图像）的输入和输出等来呈现。 您可以使用 <a href="https://nbdev.fast.ai/export2html.html">此页面上描述</a> 的 <a href="https://nbdev.fast.ai/export2html.html">标志</a> 隐藏整个单元格，仅隐藏单元格输入或仅隐藏输出 。</p>
+  </li>
+  <li>
+    <p>nbdev支持特殊的块引号，这些引号在文档中显示为彩色框。 您可以 <a href="https://nbdev.fast.ai/export2html.html#add_jekyll_notes">在此处</a> 阅读有关它们的更多信息 。 在此特定示例中，我们使用 <code class="language-plaintext highlighter-rouge">Note</code> 块引用。</p>
+  </li>
+  <li>
+    <p>在反引号中包含的单词将在适当的情况下自动超链接到关联的文档。 这是一个简单的情况，其中在 <code class="language-plaintext highlighter-rouge">Card</code> 上面紧接定义了类，但是这适用于页面和模块。 在后面的步骤中，我们将看到另一个示例。</p>
+  </li>
+</ol>
+
+<h3 id="show_doc">show_doc<a href="#show_doc"></a><a href="#show_doc"></a></h3>
+
+<p><a href="https://nbdev.fast.ai/showdoc.html#show_doc"><code class="language-plaintext highlighter-rouge">show_doc</code></a> 允许您控制文档在文档中的显示方式。 您可以控制文档呈现方式的位置，顺序，标题和其他详细信息。 您可以 <a href="https://nbdev.fast.ai/showdoc.html#show_doc">在此处了解</a> 更多 <a href="https://nbdev.fast.ai/showdoc.html#show_doc">信息</a> 。 例如，这是您可以 <a href="https://nbdev.fast.ai/showdoc.html#show_doc"><code class="language-plaintext highlighter-rouge">show_doc</code></a> 用来呈现 <code class="language-plaintext highlighter-rouge">__eq__</code> 方法 的文档的 方式 <code class="language-plaintext highlighter-rouge">Card</code> （请注意，测试自然包含在文档下方）：</p>
+
+<p><img src="https://nbdev.fast.ai/images/att_00017.png" alt="image.png" /></p>
+
+<h4 id="有关的重要说明-show_doc-">有关的重要说明 <a href="https://nbdev.fast.ai/showdoc.html#show_doc"><code class="language-plaintext highlighter-rouge">show_doc</code></a> ：<a href="https://nbdev.fast.ai/example.html#Important-Notes-about-show_doc:"></a><a href="https://nbdev.fast.ai/example.html#Important-Notes-about-show_doc:"></a></h4>
+
+<ul>
+  <li>
+    <p><strong>对于函数和类，<a href="https://nbdev.fast.ai/showdoc.html#show_doc"><code class="language-plaintext highlighter-rouge">show_doc</code></a>默认情况下会</strong> 在定义函数或类的相同位置<strong>自动调用</strong> 。 这就是为什么 <code class="language-plaintext highlighter-rouge">Cards</code> 即使 <a href="https://nbdev.fast.ai/showdoc.html#show_doc"><code class="language-plaintext highlighter-rouge">show_doc</code></a> 从未显式调用过 上面docs示例中 的类的标题的原因 。</p>
+
+    <ul>
+      <li>您可以通过显式调用 <a href="https://nbdev.fast.ai/showdoc.html#show_doc"><code class="language-plaintext highlighter-rouge">show_doc</code></a> 所需位置 来覆盖此默认设置 。</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>对于方法，您必须要求<a href="https://nbdev.fast.ai/showdoc.html#show_doc"><code class="language-plaintext highlighter-rouge">show_doc</code></a></strong> 显示文档标题，如 <code class="language-plaintext highlighter-rouge">Card.__eq__</code> 上面 的 方法所示。 这是设计使然，因为与函数不同，您通常在单个连续的代码块中定义类的所有方法。 因此， <a href="https://nbdev.fast.ai/showdoc.html#show_doc"><code class="language-plaintext highlighter-rouge">show_doc</code></a> 允许您控制方法的文档标题的顺序和位置，从而帮助您为在适当标题下组织的每种方法编写散文和测试。</p>
+  </li>
+  <li>
+    <p>我们建议您 <a href="https://nbdev.fast.ai/showdoc.html#show_doc"><code class="language-plaintext highlighter-rouge">show_doc</code></a> 通过编辑笔记本并重新渲染文档（如下所述）进行试验，以了解在不同情况下会发生什么。</p>
+  </li>
+</ul>
+
+<h3 id="刷新文档">刷新文档<a href="#Refresh-the-docs"></a><a href="#Refresh-the-docs"></a></h3>
+
+<p>如果要编辑文档，则可以对相应的笔记本进行更改并运行， <a href="https://nbdev.fast.ai/export2html.html#nbdev_build_docs"><code class="language-plaintext highlighter-rouge">nbdev_build_docs</code></a> 然后 在浏览器中进行 <a href="https://www.getfilecloud.com/blog/2015/03/tech-tip-how-to-do-hard-refresh-in-browsers/#.X52j8lNKjng">硬刷新</a> 以重新呈现文档。</p>
+
+<h2 id="第5步将文件推送到github并查看托管文档">第5步：将文件推送到GitHub并查看托管文档<a href="https://nbdev.fast.ai/example.html#Step-5:-Push-Files-To-GitHub-And-View-Hosted-Docs"></a><a href="https://nbdev.fast.ai/example.html#Step-5:-Push-Files-To-GitHub-And-View-Hosted-Docs"></a></h2>
+
+<p>此步骤假定您已 <a href="https://nbdev.fast.ai/tutorial.html#Github-pages">启用GitHub页面</a> 。</p>
+
+<p>至此，我们准备将您的第一个文件推送到GitHub。 如果您已 <a href="https://nbdev.fast.ai/#Avoiding-and-handling-git-conflicts">按照本教程中的说明安装了git hooks</a> ， <code class="language-plaintext highlighter-rouge">nbdev</code> 它将自动从笔记本中清除不必要的元数据，以避免冲突和过于冗长的差异。 首次将文件推送到GitHub之前，我们建议运行命令， <code class="language-plaintext highlighter-rouge">git status</code> 以便您可以查看由生成的所有文件 <code class="language-plaintext highlighter-rouge">nbdev</code> 。 您将注意到已创建以下文件：</p>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">.py</code> 与您创建的笔记本相对应的文件，位于与库名称相对应的文件夹中，在本例中，该文件夹称为 <a href="https://github.com/fastai/deck_of_cards/tree/master/deck_of_cards">deck_of_cards</a> 。 例如，将 <code class="language-plaintext highlighter-rouge">__init__.py</code> 在适当的目录中自动创建 一个 文件，以组织一个python模块。</p>
+  </li>
+  <li>
+    <p>文件 <code class="language-plaintext highlighter-rouge">docs/</code> 夹中的 文档站点 文件。 该目录包含HTML，CSS和其他文件，这些文件用于在GitHub Pages上托管您的文档站点。</p>
+  </li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">git add</code> 在推送到GitHub之前， 请确保将所有这些文件添加到提交中 ，因为 所有这些文件 都可以正常工作。</p>
+
+<p>将文件推送到GitHub将 <a href="https://nbdev.fast.ai/#Using-nbdev-as-part-of-your-CI">使用GitHub Actions</a> 自动触发 <a href="https://nbdev.fast.ai/#Using-nbdev-as-part-of-your-CI">持续集成（CI）</a> 。 CI将自动执行 <a href="https://nbdev.fast.ai/tutorial.html#CI">此处概述</a> 的许多检查 。 您可以通过导航到GitHub存储库中的“操作”选项卡来查看GitHub动作中正在运行的CI流程。</p>
+
+<p>推送文件后，GitHub将自动重建您的文档。 您可以通过转至存储库设置并在选项下找到GitHub Pages部分来查看文档构建状态。 当GitHub正在构建您的页面时，它将如下所示：</p>
+
+<p><img src="https://nbdev.fast.ai/images/att_00018.png" alt="image.png" /></p>
+
+<p>页面构建完成后，颜色和状态消息将变为如下所示：</p>
+
+<p><img src="https://nbdev.fast.ai/images/att_00019.png" alt="image.png" /></p>
+
+<p>此外，假设您已经 <a href="https://nbdev.fast.ai/tutorial.html#Github-pages">启用了GitHub Pages</a> ，则可以随时查看Github Pages部署的状态。 如果添加 <code class="language-plaintext highlighter-rouge">/deployments</code> 到存储库的GitHub URL，您将看到一个部署仪表板。 例如，以下是 在推送新文件后 的 <a href="https://github.com/fastai/deck_of_cards/deployments">https://github.com/fastai/deck_of_cards/deployments</a> 的屏幕截图 ：</p>
+
+<p><img src="https://nbdev.fast.ai/images/att_00021.png" alt="image.png" /></p>
+
+<h2 id="步骤6添加更多代码">步骤6：添加更多代码<a href="https://nbdev.fast.ai/example.html#Step-6:-Add-More-Code"></a><a href="https://nbdev.fast.ai/example.html#Step-6:-Add-More-Code"></a></h2>
+
+<p>恭喜，您使用nbdev编写了第一段代码！ 但是，要完全掌握nbdev的工作方式，值得在新笔记本中添加其他代码，以导入您之前编写的代码。 接下来，我们将 <a href="https://github.com/AllenDowney/ThinkPython2/blob/master/code/Card.py#L55">Deck类形式的cards.py</a> 添加 到名为 <a href="https://github.com/fastai/deck_of_cards/blob/master/01_deck.ipynb">01_deck.ipynb</a> 的新笔记本中 。 该笔记本将导入先前创建的 <code class="language-plaintext highlighter-rouge">Card</code> 类，并创建一个 <code class="language-plaintext highlighter-rouge">Deck</code> ，它是Card的集合：</p>
+
+<p><img src="https://nbdev.fast.ai/images/att_00022.png" alt="image.png" /></p>
+
+<p>与先前的笔记本类似，第一个单元格具有nbdev标志 <code class="language-plaintext highlighter-rouge"># default_exp deck</code> ，这意味着标记为的代码块 <code class="language-plaintext highlighter-rouge">#export</code> 将 <code class="language-plaintext highlighter-rouge">deck.py</code> 默认 导出到文件中 。 您可以看到我们导入了 <code class="language-plaintext highlighter-rouge">Card</code> 对象，并 <code class="language-plaintext highlighter-rouge">deck.py</code> 使用以下代码单元 将该代码导出到 ：</p>
+
+<p>#export</p>
+
+<p>from  deck_of_cards.card 导入 卡</p>
+
+<p>之所以 能够成功 ，是 因为cli命令已 <a href="https://nbdev.fast.ai/export2html.html#nbdev_build_lib"><code class="language-plaintext highlighter-rouge">nbdev_build_lib</code></a> 转换 <code class="language-plaintext highlighter-rouge">00_card.ipynb</code> 为 <code class="language-plaintext highlighter-rouge">card.py</code> ，我们已经在此处 将 其导入。</p>
+
+<h3 id="测验">测验<a href="#Tests"></a><a href="#Tests"></a></h3>
+
+<p>唐尼的代码 <code class="language-plaintext highlighter-rouge">Deck</code> 在名为 <a href="https://github.com/AllenDowney/ThinkPython2/blob/master/code/Card_test.py">Card_test.py</a> 的单独文件中 包含对该 类 的测试 。 该文件是一个很好的例子，突出了的优势 <code class="language-plaintext highlighter-rouge">nbdev</code> 。 该文件的内容如下：</p>
+
+<p>“”该文件包含与</p>
+
+<p>Allen B. Downey</p>
+
+<p>一起使用的“ Think Stats”代码，可从greenteapress.com获得。版权所有2014 Allen B. Downey</p>
+
+<p>许可：GNU GPLv3 http://www.gnu.org/licenses/gpl。 html</p>
+
+<p>“”“</p>
+
+<p>来自 __future__  import  print_function ， 部门</p>
+
+<p>从Card导入卡，Deck导入unittest</p>
+
+<p>类 测试（单元测试，测试用例）：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DEF  testDeckRemove （自）：
+
+    甲板 \= 甲板（）
+
+    card23  \= 卡（2 ， 3 ）
+
+    的甲板。remove\_card （card23 ）
+</code></pre></div></div>
+
+<p>如果 __name__  ==  “ __main__ ” ：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unittest 。主要（）
+</code></pre></div></div>
+
+<p>由于以下原因，上面显示的代码有问题：</p>
+
+<ul>
+  <li>
+    <p>目前尚不清楚测试的目的是什么。</p>
+  </li>
+  <li>
+    <p>该测试位于与实现分开的文件中，因此您必须打开多个窗口和/或切换上下文以了解该测试。</p>
+  </li>
+  <li>
+    <p>测试使用一个api， <code class="language-plaintext highlighter-rouge">unittest</code> 您必须学习并考虑一下是否要编写测试。</p>
+  </li>
+  <li>
+    <p>测试与文档以及与解释类的内容相关的任何散文是分开的 <code class="language-plaintext highlighter-rouge">Deck</code> 。</p>
+  </li>
+</ul>
+
+<p>所有这些问题都在nbdev中处理，因为您可以在同一上下文中编写代码，文档和测试。 以下是 <a href="https://github.com/fastai/deck_of_cards/blob/master/01_deck.ipynb">01_deck.ipynb</a> 的相关部分的屏幕快照，该屏幕快照 以更具可读性和表现力的方式表示代码和此测试：</p>
+
+<p><img src="https://nbdev.fast.ai/images/att_00023.png" alt="image.png" /></p>
+
+<p>上面的代码表示相同的单元测试，但也将文档与Deck的原始实现集成在一起。 您可以在GitHub上查看笔记本电脑 <a href="https://github.com/fastai/deck_of_cards/blob/master/01_deck.ipynb">在这里</a> 。 此笔记本中显示的另一个附加工具是 <code class="language-plaintext highlighter-rouge">nbdev</code> function <a href="https://nbdev.fast.ai/showdoc.html#show_doc"><code class="language-plaintext highlighter-rouge">show_doc</code></a> ，它使您可以控制文档的放置。 在此示例中， <code class="language-plaintext highlighter-rouge">showdoc(Deck.remove_card)</code> 将在文档中创建一个带有适当标题的部分。</p>
+
+<p>如果运行CLI命令 <code class="language-plaintext highlighter-rouge">make docs_serve</code> ，则可以在本地预览这些文档的外观。 以下是带注释的屏幕快照：</p>
+
+<p><img src="https://nbdev.fast.ai/images/att_00024.png" alt="image.png" /></p>
+
+<h4 id="注释说明-1">注释说明：<a href="https://nbdev.fast.ai/example.html#Explanation-of-annotations:"></a><a href="https://nbdev.fast.ai/example.html#Explanation-of-annotations:"></a></h4>
+
+<ol>
+  <li>
+    <p>在编写这些文档时，我们只 <code class="language-plaintext highlighter-rouge">Card</code> 用反引号 括起来 。 <code class="language-plaintext highlighter-rouge">nbdev</code> 自动将其转换为指向文档相应页面的超链接 <code class="language-plaintext highlighter-rouge">Card</code> 。</p>
+  </li>
+  <li>
+    <p>该方法的标题 <code class="language-plaintext highlighter-rouge">Deck.remove_card</code> 是由创建的 <a href="https://nbdev.fast.ai/showdoc.html#show_doc"><code class="language-plaintext highlighter-rouge">show_doc</code></a> 。</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">nbdev</code> 旨在鼓励您将测试作为文档的一部分编写，如下所示。</p>
+  </li>
+</ol>
+
+<p>您可以在 <a href="https://fastai.github.io/deck_of_cards/deck.html">https://fastai.github.io/deck_of_cards/deck.html</a> 上实时查看此页面 。</p>
+
+<p>完成后，请确保在推送到GitHub之前运行以下cli命令。</p>
+
+<ul>
+  <li>
+    <p><a href="https://nbdev.fast.ai/export2html.html#nbdev_build_lib"><code class="language-plaintext highlighter-rouge">nbdev_build_lib</code></a> ：这会将您的笔记本转换为模块。</p>
+  </li>
+  <li>
+    <p><a href="https://nbdev.fast.ai/export2html.html#nbdev_build_docs"><code class="language-plaintext highlighter-rouge">nbdev_build_docs</code></a> ：这将生成您的文档站点。</p>
+  </li>
+  <li>
+    <p><a href="https://nbdev.fast.ai/test.html#nbdev_test_nbs"><code class="language-plaintext highlighter-rouge">nbdev_test_nbs</code></a> ：这将运行您的所有测试（这是一个好主意，因此您可以捕获错误）。</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">git status</code> 查看哪些文件已更改，这是一个很好的练习，它是首次入门时 <code class="language-plaintext highlighter-rouge">nbdev</code> 了解自动生成的文件的方法。</p>
+  </li>
+</ul>
+
+<h2 id="步骤7将python模块发布到pypi">步骤7：将Python模块发布到Pypi<a href="https://nbdev.fast.ai/example.html#Step-7:-Publish-Python-Module-to-Pypi"></a><a href="https://nbdev.fast.ai/example.html#Step-7:-Publish-Python-Module-to-Pypi"></a></h2>
+
+<p>您可以按照 <a href="https://nbdev.fast.ai/tutorial.html#Upload-to-pypi">以下说明</a> 将模块发布到pypi 。</p>
+
+<h2 id="参考">参考<a href="#References"></a><a href="#References"></a></h2>
+
+<p>该示例的所有代码都可以在GitHub repo <a href="https://github.com/fastai/deck_of_cards">fastai / deck_of_cards上找到</a> 。</p>
+
+<h3 id="现场演示">现场演示<a href="#Live-Demo"></a><a href="#Live-Demo"></a></h3>
+
+<p>以下视频显示了此示例的现场演示，最后是“问答”部分。</p>
