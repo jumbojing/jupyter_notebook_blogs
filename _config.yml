@@ -6,7 +6,7 @@
 # https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
 # https://learnxinyminutes.com/docs/yaml/
 
-title: SpiritLHL's Python blog
+title: jumbojing's Python blog
 description: Personally explore Python's study notes.
 github_username: jumbojing
 # you can comment the below line out if your repo name is not different than your baseurl
@@ -122,6 +122,6 @@ feed:
   excerpt_only: true
  
  #添加sitemap
-url: "https://spiritlhl.github.io/jupyter_notebook_blogs/" # the base hostname & protocol for your site
+url: "https://jumbojing.github.io/jupyter_notebook_blogs/" # the base hostname & protocol for your site
 plugins:
   - jekyll-sitemap
