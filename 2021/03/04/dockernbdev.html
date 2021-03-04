@@ -1,0 +1,23 @@
+
+<h1 id="nbdeb-with-docker">nbdeb with Docker</h1>
+<h2 id="docker命令">docker命令</h2>
+<h3 id="查看本地镜像">查看本地镜像</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~&gt; docker images                            
+REPOSITORY            TAG       IMAGE ID       CREATED       SIZE
+fastdotai/nbdev-dev   latest    f37f83e5f8a6   3 weeks ago   2.11GB
+</code></pre></div></div>
+<h3 id="建镜像并挂本地目录">建镜像并挂本地目录</h3>
+
+<p><code class="language-plaintext highlighter-rouge">~&gt; docker run -it -v /Users/liguimei/Documents/dockerlocal:/home/local fastdotai/nbdev-dev /bin/bash</code></p>
+
+<h3 id="将nbs内的ipynb文件拷贝到local文件夹">将nbs内的ipynb文件拷贝到local文件夹</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>runner@f566539e687c:~/cp nbs/*.ipynb local/
+runner@f566539e687c:~$ cd local
+runner@f566539e687c:~/local$ ls
+00_export.ipynb       05_merge.ipynb   index.ipynb
+01_sync.ipynb         06_cli.ipynb     tutorial_colab.ipynb
+02_showdoc.ipynb      07_clean.ipynb   tutorial.ipynb
+03_export2html.ipynb  99_search.ipynb
+04_test.ipynb         example.ipynb
+</code></pre></div></div>
+
